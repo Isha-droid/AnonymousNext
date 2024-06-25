@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@api/pplx": "file:.api/apis/pplx",
     "@react-email/components": "^0.0.19",
-    "ai": "^2.2.30",
+    "ai": "^2.2.37",
     "axios": "^1.6.3",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
@@ -23,7 +24,7 @@
     "mongoose": "^8.0.3",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
-    "openai": "^4.24.1",
+    "openai": "^4.52.0",
     "react": "^18",
     "react-dom": "^18",
     "react-email": "^1.10.1",
