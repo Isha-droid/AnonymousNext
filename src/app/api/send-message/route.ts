@@ -39,19 +39,19 @@ export async function POST(request: Request): Promise<Response> {
         }
 
         // Construct the new message object
-        const newMessage: Message = {
+        const newMessage = {
             content,
             createdAt: new Date(),
         };
 
         // Push the new message to the user's messages array
-        existingUser.message.push(newMessage);
+        existingUser.message.push(newMessage as Message);
 
         // Save the updated user document
         await existingUser.save();
 
         return new Response(
-            JSON.stringify({ success: true, message: "Message added successfully" }),
+            JSON.stringify({ success: true, message: "Message sent successfully" }),
             { status: 200 }
         );
     } catch (error) {
