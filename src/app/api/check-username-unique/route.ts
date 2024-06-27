@@ -25,20 +25,17 @@ export async function GET(request: Request) {
     // If username is available
     
 
-    const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/;
 
-if (queryParam.username) {
-  const match = queryParam.username.match(emailRegex);
-  if (match) {
-    const email = match[0];
-    console.log(email); // Output: kishori@gmail.com
-  } else {
-    console.log("No email found in the input string.");
-  }
-} else {
-  console.log("Username is null.");
-}
-
+    if (queryParam.username) {
+      if (typeof queryParam.username === 'object') {
+        queryParam.username = JSON.stringify(queryParam.username);
+      }
+      queryParam.username = queryParam.username.split(',')[0];
+      console.log(queryParam.username); // Output: the part before the comma
+    } else {
+      console.log("Username is null.");
+    }
+    
 
 
     // Validate the query parameter using Zod schema

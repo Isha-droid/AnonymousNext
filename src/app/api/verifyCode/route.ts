@@ -17,9 +17,13 @@ export async function POST(request: Request): Promise<Response> {
     try {
         const { username, code }: VerifyRequestBody = await request.json();
         const decodedUsername = decodeURIComponent(username);
+        console.log(username)
+        console.log(code)
+
 
         // Find the user with the given username
         const user = await UserModel.findOne({ username: decodedUsername });
+        console.log(user)
 
         if (!user) {
             return new Response(
