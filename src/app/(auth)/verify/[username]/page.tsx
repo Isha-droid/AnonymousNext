@@ -26,7 +26,7 @@ const VerifyOTP = () => {
     try {
       const response = await axios.post('/api/verifyCode', { username: encodeURIComponent(username), code: data.otp });
       if (response.data.success) {
-        router.replace('/success');
+        router.replace('/');
       } else {
         setErrorMessage(response.data.message);
       }

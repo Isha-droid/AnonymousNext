@@ -59,7 +59,6 @@ export async function POST(request: Request): Promise<Response> {
 
         // Mark the user as verified
         user.isVerified = true;
-        user.verifyCode = ""; // Optionally clear the verification code
         await user.save();
 
         return new Response(
