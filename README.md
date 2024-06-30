@@ -33,10 +33,8 @@ To run this project locally, follow these steps:
    cd anonymous-app
    
 2. Install the dependencies
-   ```bash
-  npm install
+  `npm install`
   
 3. Run the project in devlopment server
-```bash
-npm run dev
+`npm run dev`
 
