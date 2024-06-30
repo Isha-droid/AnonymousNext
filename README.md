@@ -31,12 +31,12 @@ To run this project locally, follow these steps:
    ```bash
    git clone https://github.com/your-username/anonymous-app.git
    cd anonymous-app
-   ```
+   
 2. Install the dependencies
    ```bash
   npm install
-   ```
+  
 3. Run the project in devlopment server
 ```bash
 npm run dev
-```
+
