@@ -6,7 +6,7 @@ import { BsThreeDots } from 'react-icons/bs';
 import { FiTrash2 } from 'react-icons/fi';
 
 interface MessageCardProps {
-  messageId: string; // Add messageId prop
+  messageId: string;
   message: string;
   timestamp: string;
   onDelete: () => void;
@@ -17,12 +17,15 @@ const MessageCard: React.FC<MessageCardProps> = ({ messageId, message, timestamp
 
   const handleDelete = async () => {
     try {
+      // Optimistic UI: Remove message from UI immediately
+      onDelete();
+
       // Send delete request to API
       await axios.delete(`/api/delete-message/${messageId}`);
-      onDelete(); // Update UI after successful deletion
     } catch (error) {
       console.error('Error deleting message:', error);
-      // Handle error (e.g., show error message)
+      // Handle error (e.g., show error message, rollback UI change)
+      // For simplicity, you can add logic to revert UI changes if delete fails
     } finally {
       setIsMenuOpen(false); // Close delete confirmation menu
     }
