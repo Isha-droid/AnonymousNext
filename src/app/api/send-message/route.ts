@@ -21,6 +21,8 @@ export async function POST(request: Request): Promise<Response> {
                 { status: 401 }
             );
         }
+        console.log(username)
+        console.log(content)
 
         // Find the user in the database by username
         const existingUser = await UserModel.findOne({ username });
@@ -37,7 +39,7 @@ export async function POST(request: Request): Promise<Response> {
                 { status: 403 }
             );
         }
-
+        console.log(existingUser)
         // Construct the new message object
         const newMessage = {
             content,

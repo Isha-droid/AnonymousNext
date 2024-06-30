@@ -2,4 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
- 
+ /* In your global CSS file (e.g., styles/globals.css) */
+body {
+    @apply bg-gradient-to-r from-indigo-100 to-indigo-200;
+  }
+  

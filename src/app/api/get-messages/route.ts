@@ -40,44 +40,48 @@ export async function GET(request: Request): Promise<Response> {
         // Convert user._id to a mongoose ObjectId
         const userId = new mongoose.Types.ObjectId(user._id);
 
-        // Perform MongoDB aggregation to fetch user's messages
-        const userData = await UserModel.aggregate([
-            { $match: { _id: userId } }, // Match user by ObjectId
-            { $unwind: "$messages" }, // Unwind messages array
-            { $sort: { "messages.createdAt": -1 } }, // Sort messages by createdAt descending
-            { $group: { _id: "$_id", messages: { $push: "$messages" } } }, // Group messages back into array
-        ]);
+        try {
+            const userMessages =await UserModel.findById(userId, { message: 1 }).lean();
 
-        // Check if user data or messages exist
-        if (!userData || userData.length === 0) {
+
+            
+            console.log(userMessages)
+
+            if (!userMessages) {
+                return new Response(
+                    JSON.stringify({
+                        success: false,
+                        message: "No messages found for the user",
+                    }),
+                    { status: 404 }
+                );
+            }
+
+            return new Response(
+                JSON.stringify({
+                    success: true,
+                    messages: userMessages,
+                }),
+                { status: 200 }
+            );
+        } catch (error) {
+            console.error("Error fetching user messages:", error);
             return new Response(
                 JSON.stringify({
                     success: false,
-                    message: "No messages found for the user",
+                    message: "Error fetching user messages",
                 }),
-                { status: 404 }
+                { status: 500 }
             );
         }
-
-        // Extract messages from the aggregation result
-        const messages: Message[] = userData[0].messages;
-
-        // Return messages in the response
-        return new Response(
-            JSON.stringify({
-                success: true,
-                messages,
-            }),
-            { status: 200 }
-        );
     } catch (error) {
-        console.error("Error fetching user messages:", error);
+        console.error("Error authenticating user:", error);
         return new Response(
             JSON.stringify({
                 success: false,
-                message: "Error fetching user messages",
+                message: "Error: Not authenticated",
             }),
-            { status: 500 }
+            { status: 401 }
         );
     }
 }

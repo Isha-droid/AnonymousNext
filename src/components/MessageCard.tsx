@@ -1,4 +1,3 @@
-"use client"
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import { FaRegComment } from 'react-icons/fa';
@@ -32,9 +31,9 @@ const MessageCard: React.FC<MessageCardProps> = ({ messageId, message, timestamp
   };
 
   return (
-    <div className="relative max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden my-4 border border-gray-300 hover:shadow-lg transition-shadow duration-300">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="relative max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden my-4 border border-gray-300 hover:shadow-lg transition-shadow duration-300">
+        <div className="p-6 flex items-center justify-between">
           <div className="flex items-center">
             <FaRegComment className="text-indigo-500 mr-3" />
             <p className="text-gray-700">{message}</p>
@@ -47,7 +46,7 @@ const MessageCard: React.FC<MessageCardProps> = ({ messageId, message, timestamp
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
                 <button
-                  className="flex items-center w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  className="flex flex-col items-center w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                   onClick={handleDelete}
                 >
                   <FiTrash2 className="mr-2" />

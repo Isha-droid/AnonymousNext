@@ -30,9 +30,12 @@ const Navbar = () => {
             </button>
           </>
         ) : (
-          <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded transition duration-300">
-            Login
-          </button>
+          <Link href="/sign-in">
+  <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded transition duration-300">
+    Login
+  </button>
+</Link>
+
         )}
       </div>
     </div>

@@ -55,13 +55,6 @@ const UserSchema = new Schema<User>({
     },
     verifyCodeExpiry: {
         type: Date,
-        required: [true, 'Verification code expiry date is required'],
-        validate: {
-            validator: function (value: Date) {
-                return value > new Date();
-            },
-            message: 'Verification code expiry date must be in the future'
-        }
     },
     isAcceptingMessage: {
         type: Boolean,
