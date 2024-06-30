@@ -1,11 +1,10 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import MessageCard from './MessageCard';
+import axios from 'axios';
 
-// Define the Message interface
 interface Message {
   id: number;
-  sender: string;
   message: string;
   timestamp: string;
 }
@@ -14,17 +13,25 @@ const Messages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    // Fetch messages from an API or data source
-    const fetchedMessages: Message[] = [
-      { id: 1, sender: 'John Doe', message: 'Hello! How are you?', timestamp: '2024-06-28 10:00 AM' },
-      { id: 2, sender: 'Jane Smith', message: 'Can we meet tomorrow?', timestamp: '2024-06-28 11:00 AM' },
-      // Add more messages here...
-    ];
-    setMessages(fetchedMessages);
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get<Message[]>('/api/get-messages');
+        setMessages(response.data.map((msg, index) => ({
+          id: index + 1, // Assign a unique ID for each message
+          message: msg.content,
+          timestamp: msg.createdAt.toLocaleString(), // Adjust timestamp format as needed
+        })));
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
   }, []);
 
   const handleDelete = (id: number) => {
-    setMessages(messages.filter(message => message.id !== id));
+    setMessages(messages.filter((message) => message.id !== id));
+    // Add logic to delete message via API if required
   };
 
   return (
@@ -32,17 +39,16 @@ const Messages: React.FC = () => {
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Messages</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {messages.map((msg) => (
-          <MessageCard 
-            key={msg.id} 
-            sender={msg.sender} 
-            message={msg.message} 
-            timestamp={msg.timestamp} 
+          <MessageCard
+            key={msg.id}
+            message={msg.message}
+            timestamp={msg.timestamp}
             onDelete={() => handleDelete(msg.id)}
           />
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default Messages;
